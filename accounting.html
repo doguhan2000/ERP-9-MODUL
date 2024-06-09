@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Muhasebe Yönetimi</title>
+    <link rel="stylesheet" href="accounting.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div id="interest-rate-marquee">
+        <div id="interest-rate-container">
+            <span id="interest-rate-content"></span>
+        </div>
+    </div>
+    <div id="container">
+        <h1>Muhasebe Yönetimi</h1>
+
+        <section id="financial-transactions">
+            <h2>Finansal İşlemler</h2>
+            <form id="transaction-form">
+                <div class="form-group">
+                    <label for="date">Tarih:</label>
+                    <input type="date" id="date" name="date" required>
+                </div>
+                <div class="form-group">
+                    <label for="type">Tür:</label>
+                    <select id="type" name="type" required>
+                        <option value="gelir">Gelir</option>
+                        <option value="gider">Gider</option>
+                        <option value="borç">Borç</option>
+                        <option value="alacak">Alacak</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="amount">Miktar:</label>
+                    <input type="number" id="amount" name="amount" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="description">Açıklama:</label>
+                    <input type="text" id="description" name="description">
+                </div>
+                <div class="form-group">
+                    <label for="tax">Vergi Oranı (%):</label>
+                    <input type="number" id="tax" name="tax" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="currency">Para Birimi:</label>
+                    <select id="currency" name="currency" required>
+                        <option value="TRY">TRY</option>
+                        <option value="USD">USD</option>
+                        <option value="EUR">EUR</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn"><i class="fas fa-save"></i> Kaydet</button>
+            </form>
+
+            <h2>İşlemler</h2>
+            <div id="transactions">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tarih</th>
+                            <th>Tür</th>
+                            <th>Miktar</th>
+                            <th>Açıklama</th>
+                            <th>Vergi Oranı</th>
+                            <th>Para Birimi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="debt-management">
+            <h2>Borç ve Ödeme Yönetimi</h2>
+            <form id="debt-form">
+                <div class="form-group">
+                    <label for="supplier-name">Satıcı Adı:</label>
+                    <input type="text" id="supplier-name" name="supplier-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="invoice-number">Fatura Numarası:</label>
+                    <input type="text" id="invoice-number" name="invoice-number" required>
+                </div>
+                <div class="form-group">
+                    <label for="debt-amount">Miktar:</label>
+                    <input type="number" id="debt-amount" name="debt-amount" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="due-date">Ödeme Tarihi:</label>
+                    <input type="date" id="due-date" name="due-date" required>
+                </div>
+                <button type="submit" class="btn"><i class="fas fa-save"></i> Kaydet</button>
+            </form>
+
+            <h2>Satıcı Borçları</h2>
+            <div id="debts">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Satıcı Adı</th>
+                            <th>Fatura Numarası</th>
+                            <th>Miktar</th>
+                            <th>Ödeme Tarihi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                       
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="payment-management">
+            <h2>Ödeme Yönetimi</h2>
+            <form id="payment-form">
+                <div class="form-group">
+                    <label for="payment-date">Ödeme Tarihi:</label>
+                    <input type="date" id="payment-date" name="payment-date" required>
+                </div>
+                <div class="form-group">
+                    <label for="payment-amount">Ödeme Miktarı:</label>
+                    <input type="number" id="payment-amount" name="payment-amount" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="payment-method">Ödeme Yöntemi:</label>
+                    <select id="payment-method" name="payment-method" required>
+                        <option value="banka">Banka</option>
+                        <option value="cek">Çek</option>
+                        <option value="senet">Senet</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn"><i class="fas fa-save"></i> Kaydet</button>
+            </form>
+
+            <h2>Ödemeler</h2>
+            <div id="payments">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Ödeme Tarihi</th>
+                            <th>Ödeme Miktarı</th>
+                            <th>Ödeme Yöntemi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="cheque-management">
+            <h2>Çek/Senet Yönetimi</h2>
+            <form id="cheque-form">
+                <div class="form-group">
+                    <label for="cheque-number">Çek/Senet Numarası:</label>
+                    <input type="text" id="cheque-number" name="cheque-number" required>
+                </div>
+                <div class="form-group">
+                    <label for="cheque-amount">Miktar:</label>
+                    <input type="number" id="cheque-amount" name="cheque-amount" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="cheque-date">Çek/Senet Tarihi:</label>
+                    <input type="date" id="cheque-date" name="cheque-date" required>
+                </div>
+                <button type="submit" class="btn"><i class="fas fa-save"></i> Kaydet</button>
+            </form>
+
+            <h2>Çek/Senetler</h2>
+            <div id="cheques">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Çek/Senet Numarası</th>
+                            <th>Miktar</th>
+                            <th>Tarih</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+    <script src="accounting.js"></script>
+</body>
+</html>
