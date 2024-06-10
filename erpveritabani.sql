@@ -1,7 +1,4 @@
-
-
 CREATE DATABASE IF NOT EXISTS erp_db;
-
 
 USE erp_db;
 
@@ -15,7 +12,6 @@ CREATE TABLE IF NOT EXISTS transactions (
     para_birimi VARCHAR(3) NOT NULL
 );
 
-
 CREATE TABLE IF NOT EXISTS finance_management (
     id INT AUTO_INCREMENT PRIMARY KEY,
     tarih DATE NOT NULL,
@@ -25,9 +21,6 @@ CREATE TABLE IF NOT EXISTS finance_management (
     vergi_orani DECIMAL(5, 2) NOT NULL,
     para_birimi VARCHAR(3) NOT NULL
 );
-
-
-
 
 CREATE TABLE IF NOT EXISTS muhasebe (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -92,11 +85,11 @@ CREATE TABLE IF NOT EXISTS proje_yonetimi (
     butce DECIMAL(10, 2) NOT NULL
 );
 
-INSERT INTO islemler (tarih, tur, miktar, aciklama) VALUES ('2024-06-01', 'gelir', 1000.00, 'Müşteri ödemesi');
-INSERT INTO islemler (tarih, tur, miktar, aciklama) VALUES ('2024-06-02', 'gider', 200.00, 'Ofis malzemeleri');
+INSERT INTO transactions (tarih, tur, miktar, aciklama, vergi_orani, para_birimi) VALUES ('2024-06-01', 'gelir', 1000.00, 'Müşteri ödemesi', 18.00, 'TRY');
+INSERT INTO transactions (tarih, tur, miktar, aciklama, vergi_orani, para_birimi) VALUES ('2024-06-02', 'gider', 200.00, 'Ofis malzemeleri', 18.00, 'TRY');
 
-INSERT INTO finans_yonetimi (tarih, tur, miktar, aciklama) VALUES ('2024-06-01', 'gelir', 1500.00, 'Satış geliri');
-INSERT INTO finans_yonetimi (tarih, tur, miktar, aciklama) VALUES ('2024-06-02', 'gider', 500.00, 'Kira ödemesi');
+INSERT INTO finance_management (tarih, tur, miktar, aciklama, vergi_orani, para_birimi) VALUES ('2024-06-01', 'gelir', 1500.00, 'Satış geliri', 18.00, 'TRY');
+INSERT INTO finance_management (tarih, tur, miktar, aciklama, vergi_orani, para_birimi) VALUES ('2024-06-02', 'gider', 500.00, 'Kira ödemesi', 18.00, 'TRY');
 
 INSERT INTO muhasebe (tarih, tur, miktar, aciklama) VALUES ('2024-06-01', 'borc', 1000.00, 'Banka hesabi borcu');
 INSERT INTO muhasebe (tarih, tur, miktar, aciklama) VALUES ('2024-06-02', 'alacak', 500.00, 'Müşteri ödemesi');
