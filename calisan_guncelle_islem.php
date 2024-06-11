@@ -13,16 +13,17 @@ if ($conn->connect_error) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $id = $_POST['id'];
     $ad_soyad = $_POST['name'];
     $pozisyon = $_POST['position'];
     $departman = $_POST['department'];
     $maas = $_POST['salary'];
     $ise_giris_tarihi = $_POST['hire_date'];
 
-    $sql = "INSERT INTO insan_kaynaklari (ad_soyad, pozisyon, departman, maas, ise_giris_tarihi) VALUES ('$ad_soyad', '$pozisyon', '$departman', '$maas', '$ise_giris_tarihi')";
+    $sql = "UPDATE insan_kaynaklari SET ad_soyad='$ad_soyad', pozisyon='$pozisyon', departman='$departman', maas='$maas', ise_giris_tarihi='$ise_giris_tarihi' WHERE id='$id'";
 
     if ($conn->query($sql) === TRUE) {
-        echo "Yeni çalışan başarıyla eklendi";
+        echo "Çalışan başarıyla güncellendi";
     } else {
         echo "Hata: " . $sql . "<br>" . $conn->error;
     }

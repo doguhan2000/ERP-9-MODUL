@@ -32,6 +32,15 @@
                         <input type="text" id="position" name="position" required>
                     </div>
                     <div class="form-group">
+                        <label for="department">Departman:</label>
+                        <select id="department" name="department" required>
+                            <option value="IT">Bilgi Islem</option>
+                            <option value="HR">Insan Kaynaklari</option>
+                            <option value="Finance">Finans</option>
+                            <option value="Sales">Satis</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
                         <label for="hire_date">İşe Giriş Tarihi:</label>
                         <input type="date" id="hire_date" name="hire_date" required>
                     </div>
@@ -51,6 +60,7 @@
                                 <th>Pozisyon</th>
                                 <th>Departman</th>
                                 <th>Maaş</th>
+                                <th>İşlemler</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -68,7 +78,7 @@
                             }
 
                             // Çalışanları veritabanından çek
-                            $sql = "SELECT ad_soyad, pozisyon, maas, ise_giris_tarihi FROM insan_kaynaklari";
+                            $sql = "SELECT id, ad_soyad, pozisyon, departman, maas FROM insan_kaynaklari";
                             $result = $conn->query($sql);
 
                             if ($result->num_rows > 0) {
@@ -76,12 +86,18 @@
                                     echo "<tr>
                                             <td>" . $row["ad_soyad"] . "</td>
                                             <td>" . $row["pozisyon"] . "</td>
+                                            <td>" . $row["departman"] . "</td>
                                             <td>" . $row["maas"] . "</td>
-                                            <td>" . $row["ise_giris_tarihi"] . "</td>
+                                            <td>
+                                                <form action='calisan_guncelle.php' method='post' style='display:inline-block;'>
+                                                    <input type='hidden' name='id' value='" . $row["id"] . "'>
+                                                    <input type='submit' value='Güncelle' class='btn'>
+                                                </form>
+                                            </td>
                                           </tr>";
                                 }
                             } else {
-                                echo "<tr><td colspan='4'>Hiç çalışan yok</td></tr>";
+                                echo "<tr><td colspan='5'>Hiç çalışan yok</td></tr>";
                             }
 
                             $conn->close();
