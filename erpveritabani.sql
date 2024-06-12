@@ -54,6 +54,24 @@ CREATE TABLE IF NOT EXISTS devamlilik (
     durum ENUM('izin', 'devamsizlik', 'calisma') NOT NULL,
     FOREIGN KEY (calisan_id) REFERENCES insan_kaynaklari(id)
 );
+CREATE TABLE IF NOT EXISTS urunler (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    urun_adi VARCHAR(255) NOT NULL,
+    urun_aciklamasi TEXT,
+    fiyat DECIMAL(10, 2) NOT NULL,
+    stok INT NOT NULL,
+    urun_fotografi VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS satislar (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    urun_id INT NOT NULL,
+    miktar INT NOT NULL,
+    toplam_fiyat DECIMAL(10, 2) NOT NULL,
+    satis_tarihi DATE NOT NULL,
+    FOREIGN KEY (urun_id) REFERENCES urunler(id)
+);
+
 INSERT INTO transactions (tarih, tur, miktar, aciklama, vergi_orani, para_birimi) VALUES ('2024-06-01', 'gelir', 1000.00, 'Müşteri ödemesi', 18.00, 'TRY');
 INSERT INTO transactions (tarih, tur, miktar, aciklama, vergi_orani, para_birimi) VALUES ('2024-06-02', 'gider', 200.00, 'Ofis malzemeleri', 18.00, 'TRY');
 
