@@ -99,3 +99,13 @@ tr:hover {
     left: 10px;
     background-color: #007BFF;
 }
+
+td a {
+    color: #007BFF;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+td a:hover {
+    color: #0056b3;
+}

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Satın Alma Siparişleri</title>
     <link rel="stylesheet" href="siparisler.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <div id="container">
@@ -24,6 +25,7 @@
                     <th>Sipariş Tarihi</th>
                     <th>Durum</th>
                     <th>Durum Güncelle</th>
+                    <th>Detay Görüntüle/Düzenle</th>
                 </tr>
             </thead>
             <tbody>
@@ -50,11 +52,12 @@
                         echo "<td>" . $row['toplam_fiyat'] . "</td>";
                         echo "<td>" . $row['siparis_tarihi'] . "</td>";
                         echo "<td>" . $row['durum'] . "</td>";
-                        echo "<td><a href='guncelle_durum.php?id=" . $row['id'] . "'>Durumu Güncelle</a></td>";
+                        echo "<td><a href='guncelle_durum.php?id=" . $row['id'] . "'><i class='fas fa-edit'></i></a></td>";
+                        echo "<td><a href='detay_goruntule_duzenle.php?id=" . $row['id'] . "'><i class='fas fa-eye'></i></a></td>";
                         echo "</tr>";
                     }
                 } else {
-                    echo "<tr><td colspan='9'>Henüz sipariş eklenmemiş.</td></tr>";
+                    echo "<tr><td colspan='10'>Henüz sipariş eklenmemiş.</td></tr>";
                 }
 
                 $conn->close();

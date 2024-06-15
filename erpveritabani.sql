@@ -72,6 +72,29 @@ CREATE TABLE IF NOT EXISTS satislar (
     FOREIGN KEY (urun_id) REFERENCES urunler(id)
 );
 
+CREATE TABLE IF NOT EXISTS tedarikciler (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    tedarikci_adi VARCHAR(255) NOT NULL,
+    tedarikci_iletisim VARCHAR(255) NOT NULL,
+    tedarikci_adresi VARCHAR(255) NOT NULL,
+    tedarikci_telefonu VARCHAR(20) NOT NULL,
+    tedarikci_eposta VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS satin_alma_siparisleri (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    tedarikci_id INT NOT NULL,
+    urun_adi VARCHAR(255) NOT NULL,
+    miktar INT NOT NULL,
+    birim_fiyat DECIMAL(10, 2) NOT NULL,
+    toplam_fiyat DECIMAL(10, 2) NOT NULL,
+    siparis_tarihi DATE NOT NULL,
+    teslim_tarihi DATE,
+    durum ENUM('Beklemede', 'Tamamlandı', 'İptal Edildi') NOT NULL,
+    FOREIGN KEY (tedarikci_id) REFERENCES tedarikciler(id)
+);
+
+
 INSERT INTO transactions (tarih, tur, miktar, aciklama, vergi_orani, para_birimi) VALUES ('2024-06-01', 'gelir', 1000.00, 'Müşteri ödemesi', 18.00, 'TRY');
 INSERT INTO transactions (tarih, tur, miktar, aciklama, vergi_orani, para_birimi) VALUES ('2024-06-02', 'gider', 200.00, 'Ofis malzemeleri', 18.00, 'TRY');
 
