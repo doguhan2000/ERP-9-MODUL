@@ -1,6 +1,22 @@
 CREATE DATABASE IF NOT EXISTS erp_db;
-
 USE erp_db;
+
+CREATE TABLE IF NOT EXISTS musteriler (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    ad_soyad VARCHAR(255) NOT NULL,
+    email VARCHAR(255),
+    telefon VARCHAR(20),
+    adres VARCHAR(255)
+);
+
+CREATE TABLE IF NOT EXISTS insan_kaynaklari (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    ad_soyad VARCHAR(255) NOT NULL,
+    pozisyon VARCHAR(255) NOT NULL,
+    departman VARCHAR(255) NOT NULL,
+    maas DECIMAL(10, 2) NOT NULL,
+    ise_giris_tarihi DATE NOT NULL
+);
 
 CREATE TABLE IF NOT EXISTS transactions (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -30,21 +46,12 @@ CREATE TABLE IF NOT EXISTS muhasebe (
     aciklama VARCHAR(255)
 );
 
-CREATE TABLE IF NOT EXISTS insan_kaynaklari (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    ad_soyad VARCHAR(255) NOT NULL,
-    pozisyon VARCHAR(255) NOT NULL,
-    departman VARCHAR(255) NOT NULL,
-    maas DECIMAL(10, 2) NOT NULL,
-    ise_giris_tarihi DATE NOT NULL
-);
-
 CREATE TABLE IF NOT EXISTS performans (
     id INT AUTO_INCREMENT PRIMARY KEY,
     calisan_id INT NOT NULL,
     tarih DATE NOT NULL,
     performans_puani INT NOT NULL,
-    FOREIGN KEY (calisan_id) REFERENCES insan_kaynaklari(id)
+    FOREIGN KEY (calisan_id) REFERENCES insan_kaynaklari(id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS devamlilik (
@@ -52,8 +59,9 @@ CREATE TABLE IF NOT EXISTS devamlilik (
     calisan_id INT NOT NULL,
     tarih DATE NOT NULL,
     durum ENUM('izin', 'devamsizlik', 'calisma') NOT NULL,
-    FOREIGN KEY (calisan_id) REFERENCES insan_kaynaklari(id)
+    FOREIGN KEY (calisan_id) REFERENCES insan_kaynaklari(id) ON DELETE CASCADE
 );
+
 CREATE TABLE IF NOT EXISTS urunler (
     id INT AUTO_INCREMENT PRIMARY KEY,
     urun_adi VARCHAR(255) NOT NULL,
@@ -69,7 +77,7 @@ CREATE TABLE IF NOT EXISTS satislar (
     miktar INT NOT NULL,
     toplam_fiyat DECIMAL(10, 2) NOT NULL,
     satis_tarihi DATE NOT NULL,
-    FOREIGN KEY (urun_id) REFERENCES urunler(id)
+    FOREIGN KEY (urun_id) REFERENCES urunler(id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS tedarikciler (
@@ -91,8 +99,23 @@ CREATE TABLE IF NOT EXISTS satin_alma_siparisleri (
     siparis_tarihi DATE NOT NULL,
     teslim_tarihi DATE,
     durum ENUM('Beklemede', 'Tamamlandı', 'İptal Edildi') NOT NULL,
-    FOREIGN KEY (tedarikci_id) REFERENCES tedarikciler(id)
+    FOREIGN KEY (tedarikci_id) REFERENCES tedarikciler(id) ON DELETE CASCADE
 );
+
+CREATE TABLE IF NOT EXISTS tickets (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    customer_id INT NOT NULL,
+    employee_id INT NOT NULL,
+    description TEXT NOT NULL,
+    status ENUM('Açık', 'Kapalı', 'Beklemede') NOT NULL DEFAULT 'Açık',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (customer_id) REFERENCES musteriler(id) ON DELETE CASCADE,
+    FOREIGN KEY (employee_id) REFERENCES insan_kaynaklari(id) ON DELETE CASCADE
+);
+
+
+
 
 
 INSERT INTO transactions (tarih, tur, miktar, aciklama, vergi_orani, para_birimi) VALUES ('2024-06-01', 'gelir', 1000.00, 'Müşteri ödemesi', 18.00, 'TRY');
@@ -112,3 +135,7 @@ INSERT INTO performans (calisan_id, tarih, performans_puani) VALUES (2, '2024-06
 
 INSERT INTO devamlilik (calisan_id, tarih, durum) VALUES (1, '2024-06-01', 'calisma');
 INSERT INTO devamlilik (calisan_id, tarih, durum) VALUES (2, '2024-06-01', 'izin');
+
+INSERT INTO musteriler (ad_soyad, email, telefon, adres) VALUES ('ilyas', 'ilyas.com', '555-555-5555', 'izmir St');
+INSERT INTO musteriler (ad_soyad, email, telefon, adres) VALUES ('doguhan', 'doguhan.com', '555-555-5556', 'buca St');
+
