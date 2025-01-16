@@ -1,0 +1,30 @@
+.main-sidebar {
+    background: #2c3e50;
+    min-height: 100vh;
+    color: white;
+    padding-top: 20px;
+}
+
+.nav-link {
+    color: #ecf0f1;
+    padding: 12px 20px;
+    margin: 4px 8px;
+    border-radius: 8px;
+    transition: all 0.3s;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.nav-link:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    transform: translateX(5px);
+}
+
+.nav-link.active {
+    background: rgba(255, 255, 255, 0.25);
+    color: #fff;
+}
+
+.nav-link i {
+    margin-right: 10px;
+} 
